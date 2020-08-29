@@ -1,1 +1,2 @@
-from .movies import MoviesListView
+from .movies import MoviesListView, MovieWatchListView
+from .store_movies import StoreMoviesView

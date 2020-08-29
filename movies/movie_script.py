@@ -13,7 +13,7 @@ def get_movies(url):
         movies_dict["rating"] = movie.find('td', {'class': 'ratingColumn'}).find('strong').text
         movies_dict["title"] = movie.find('td', {'class': 'titleColumn'}).find('a').text
         movie_url = movie.find('a').get('href')
-        movie_dict["imdb_key"] = movie_url.split('/')[2])
+        movies_dict["imdb_key"] = movie_url.split('/')[2]
         movie_url = 'https://www.imdb.com'+movie_url
         movie_soup = BeautifulSoup(requests.get(movie_url).text, "html.parser")
         movie_details = movie_soup.find('div', {'class': 'subtext'}).text.split('|')
@@ -23,6 +23,6 @@ def get_movies(url):
         movies_dict["release_date"] = movie_details[3].replace('\n', '').strip()
     
         movies_list.append(movies_dict)
-    
+        break
     return movies_list
 
