@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import permissions, generics
 from rest_framework.authtoken.models import Token
-# from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authentication import TokenAuthentication
 
 
 
@@ -15,9 +15,7 @@ class CreateUserView(generics.CreateAPIView):
     """
     Registration for new User
     """
-    model = get_user_model()
     permission_classes = [permissions.AllowAny]
-
     serializer_class = UserSerializer
 
     
@@ -34,4 +32,14 @@ class LoginView(APIView):
             return Response(response_data, status=HTTP_200_OK)
         else:
             return Response(status=404)
+
+
+class CheckView(generics.RetrieveAPIView):
+    
+    serializer_class = UserSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        return Response(UserSerializer(request.user).data)
 

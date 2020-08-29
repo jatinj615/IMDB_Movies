@@ -1,1 +1,1 @@
-from .auth import CreateUserView, LoginView
+from .auth import CreateUserView, LoginView, CheckView
