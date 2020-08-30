@@ -20,3 +20,7 @@ class WatchListSerializer(serializers.ModelSerializer):
         model = WatchList
         fields = ['id', 'owner', 'movie', 'watched']
 
+
+    def create(self, validated_data):
+        instance, _ = WatchList.objects.get_or_create(**validated_data)
+        return instance

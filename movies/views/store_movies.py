@@ -4,36 +4,23 @@ from movies.serializer import MovieSerializer
 from movies.models import Movie
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-
+from movies.tasks import store_movies_data
 
 
 class StoreMoviesView(views.APIView):
+    """
+    Trigger Celery task to scrape and store movies in Database
+    """
 
     serializer_class = MovieSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    # def get_object(self, imdb_key):
-    #     try:
-    #         return Movie.objects.get(imdb_key=imdb_key)
-    #     except Movie.DoesNotExist():
-    #         return None
-
-
     def post(self, request):
         url = self.request.data['imdb_url']
-        movies = get_movies(url)
-        for data in movies:
-            movie = Movie.objects.filter(imdb_key=data['imdb_key'])
-            if movie:
-                serializer = self.serializer_class(movie[0], data=data)
-            else:
-                serializer = self.serializer_class(data=data)
-            if serializer.is_valid():
-                serializer.save()
+        store_movies_data.delay(url)
+        return Response({'message': 'Storing movies in Background'},status=200)
         
-        return Response(status=200)
-            
 
 
 

@@ -1,14 +1,33 @@
 from bs4 import BeautifulSoup
 import requests
+from movies.serializer import MovieSerializer
+from django.core.exceptions import ObjectDoesNotExist
+from movies.models import Movie
+
+
+
+def store_movie_data(data):
+    
+    # Store Movie data in Database
+
+    try:
+        movie = Movie.objects.get(imdb_key=data['imdb_key'])
+        serializer = MovieSerializer(movie, data=data)
+    except ObjectDoesNotExist:
+        serializer = MovieSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
 
 
 def get_movies(url):
+    
+    # Scrape the URL and store Movies in Database
+
     source_code = requests.get(url)
     plain_text = source_code.text
     soup = BeautifulSoup(plain_text, "html.parser")
     movies = soup.find('tbody', {'class': 'lister-list'})
     movies_list = []
-    
     for movie in movies.findAll('tr'):
         try:
             movies_dict = dict()
@@ -23,10 +42,10 @@ def get_movies(url):
             movies_dict["duration"] = movie_details[1].replace('\n', '').strip()
             movies_dict["genre"] = movie_details[2].replace('\n', '').strip()
             movies_dict["release_date"] = movie_details[3].replace('\n', '').strip()
-            movies_list.append(movies_dict)
+            store_movie_data(movies_dict)
         except Exception as e:
-            print(str(e))
             continue
         
-        
     return movies_list
+
+
