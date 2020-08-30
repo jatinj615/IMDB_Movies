@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "8db04723-023c-4586-b5f4-b2d116876144",
+		"name": "trainman",
+		"description": "API for trainman IMDB task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 8f916bd412760db0687ed300a0a5c8080479a1b7",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "trainman",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "trainman",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/singup/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"singup",
+						""
+					]
+				},
+				"description": "parameters required username, password<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "trainman",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "trainman",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"login",
+						""
+					]
+				},
+				"description": "Required parameters - username, password<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "Store movies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "imdb_url",
+							"value": "https://www.imdb.com/chart/top/",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/storemovies/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"storemovies",
+						""
+					]
+				},
+				"description": "Required parameter - imdb_url"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/?title_match=",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						""
+					],
+					"query": [
+						{
+							"key": "title_match",
+							"value": ""
+						}
+					]
+				},
+				"description": "optional parameter - title_match<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "Single Movie Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"3",
+						""
+					]
+				},
+				"description": "Movie primary key required in url<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Watchlist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/5/watchlist/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"5",
+						"watchlist",
+						""
+					]
+				},
+				"description": "Movie Primary Key required in URL<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "View Watchlist",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/watchlist/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"watchlist",
+						""
+					]
+				},
+				"description": "Auth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete movie from watched list",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/7/watched/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"7",
+						"watched",
+						""
+					]
+				},
+				"description": "Movie primary key required in URL<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Watchedlist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/7/watched/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"7",
+						"watched",
+						""
+					]
+				},
+				"description": "Movie primary key required in URL<br>\nAuth token required in Header"
+			},
+			"response": []
+		},
+		{
+			"name": "View Watched list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/watched/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"watched",
+						""
+					]
+				},
+				"description": "Auth token required in header"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete movie from Watched list",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a2b52ffe7d10cbdff6e5f2d406ff522e6c65c5cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/movies/7/watched/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						"7",
+						"watched",
+						""
+					]
+				},
+				"description": "Movie primary key required in URL<br>\nAuth token required in Header\n"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
