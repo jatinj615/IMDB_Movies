@@ -8,22 +8,43 @@ from django.http import Http404
 from rest_framework.response import Response
 
 
-class MoviesListView(generics.ListAPIView):
+class MovieListView(generics.ListAPIView):
+    
+    queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    
+
     def get_queryset(self):
-        queryset = Movie.objects.all()
+        
         title_match = self.request.query_params.get('title_match', None)
+        print(title_match)
         if title_match is not None:
-            queryset = queryset.filter(title__icontains=title_match)
-        return queryset
+            queryset = self.queryset.filter(title__icontains=title_match)
+            return queryset
+        return super().get_queryset()
+
+
+class MovieDetailView(generics.RetrieveAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 
-class MovieWatchListView(APIView):
+class WatchListView(generics.ListAPIView):
+    queryset = WatchList.objects.filter(watched=False)
+    serializer_class = WatchListSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+
+
+class MovieWatchListView(generics.CreateAPIView,
+                         generics.DestroyAPIView):
+
 
     serializer_class = WatchListSerializer
     authentication_classes = [TokenAuthentication]
@@ -54,11 +75,8 @@ class MovieWatchListView(APIView):
         return Response(status=200)
     
     
-    def put(self, request, pk):
-
-
-
-    
+    # def put(self, request, pk):
+    #     watchlist_item = WatchList.objects.get(pk=pk)
 
 
 
