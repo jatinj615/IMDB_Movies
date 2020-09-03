@@ -38,7 +38,7 @@ class MovieWatchListView(generics.CreateAPIView,
     def get_object(self, pk):
         try:
             return Movie.objects.get(pk=pk)
-        except Movie.DoesNotExist():
+        except ObjectDoesNotExist:
             raise Http404
 
 

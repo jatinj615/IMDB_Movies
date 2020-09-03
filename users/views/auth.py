@@ -33,13 +33,3 @@ class LoginView(APIView):
         else:
             return Response(status=404)
 
-
-class CheckView(generics.RetrieveAPIView):
-    
-    serializer_class = UserSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        return Response(UserSerializer(request.user).data)
-
